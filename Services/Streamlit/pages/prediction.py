@@ -10,6 +10,7 @@ class_values = {
     3: "very good"
     }
 
+
 def show_page():
     st.header('Предсказания', divider='rainbow')
 
@@ -28,7 +29,4 @@ def show_page():
 
         res = requests.post(url="http://127.0.0.1:8000/predict", data=json.dumps(inputs))
         with st.spinner('Classifying, please wait....'):
-
-            #prediction = class_values[json_response.get("predictions")[0]]
-
             st.subheader(f"Индекс качества воздуха = **{res.text}!**")
