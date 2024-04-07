@@ -5,16 +5,26 @@ import pandas as pd
 import plotly.express as px
 from PIL import Image
 import pages.prediction as pre
+import boto3
+from config import S3_CONFIG
 
 st.set_page_config(page_title='Индекс качества воздуха', layout='wide')
 
 # constants
-DATA = 'Data/finalData.csv'
+# Подключение к S3
+s3_resource = boto3.resource(
+    service_name="s3",
+    endpoint_url=S3_CONFIG["endpoint_url"],
+    aws_access_key_id=S3_CONFIG["aws_access_key_id"],
+    aws_secret_access_key=S3_CONFIG["aws_secret_access_key"],
+)
 
 
 @st.cache_data
 def load_data():
-    return pd.read_csv(DATA, index_col=0)
+    obj = s3_resource.Object(bucket_name="aqi", key="cleared_data.csv")
+    df = pd.read_csv(obj.get()['Body'])
+    return df
 
 
 final = load_data()
@@ -165,6 +175,7 @@ with tab2:
     st.write(
         'Индекс качества воздуха (AQI) разделен на шесть категорий.'
         ' Каждая категория соответствует разному уровню проблем со здоровьем.')
+
     image = Image.open('Images/AQI_table.png')
     st.image(image)
     st.write(
