@@ -27,6 +27,6 @@ def show_page():
                     "pm2": pm2
                 }
 
-        res = requests.post(url="http://127.0.0.1:8000/predict", data=json.dumps(inputs))
+        res = requests.post(url="http://fastapi:8000/predict", data=json.dumps(inputs))
         with st.spinner('Classifying, please wait....'):
             st.subheader(f"Индекс качества воздуха = **{res.text}!**")

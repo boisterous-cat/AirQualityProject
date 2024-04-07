@@ -15,9 +15,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error as mse
 from sklearn.neighbors import KNeighborsRegressor
 from typing import Any, Dict, Tuple
-from Services import config as config
+from config import S3_CONFIG
 
-S3_CONFIG = config.S3_CONFIG
 
 # Подключение к S3
 s3_resource = boto3.resource(
