@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  redis:
+    image: redis:7
+    container_name: redis
+    command: --port 5370
+    expose:
+      - 5370
+    networks:
+      - deploy_network
+
+  fastapi:
+    build: Services/FastApi
+    env_file:
+      - Services/.env
+    container_name: fastapi
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+    networks:
+      - deploy_network
+
+  streamlit:
+    build: Services/Streamlit
+    env_file:
+      - Services/.env
+    depends_on:
+      - fastapi
+    ports:
+      - 8501:8501
+    volumes:
+      - ./Images:/streamlit/Images:ro
+    networks:
+      - deploy_network
+    container_name: streamlit
+
+networks:
+  deploy_network:
+    driver: bridge
