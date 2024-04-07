@@ -19,16 +19,10 @@ from pathlib import Path
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 from time import sleep
 from random import randint
-from config import REDIS_HOST, REDIS_PORT
+from config import REDIS_HOST, REDIS_PORT, S3_CONFIG
+
 
 base_dir = Path(__file__).resolve().parent
-
-S3_CONFIG = {
-    "endpoint_url": "https://storage.yandexcloud.net",
-    "aws_access_key_id": "YCAJErBhyY5_AETTpDS7jOdS_",
-    "aws_secret_access_key": "YCM30hp_iaRE9cLmEziJy9j8IU8WPkkDqyaOWQii",
-    "bucket": "aqi"
-}
 
 # Подключение к S3
 s3_resource = boto3.resource(
