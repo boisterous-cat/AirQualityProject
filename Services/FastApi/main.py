@@ -1,5 +1,3 @@
-import uvicorn
-
 import boto3
 from fastapi import FastAPI, UploadFile
 from io import BytesIO
@@ -9,9 +7,9 @@ from retry_requests import retry
 import requests_cache
 import openmeteo_requests
 import pickle
-from typing import Any
+from typing import Any, List
 from fastapi.encoders import jsonable_encoder
-from data_request_model import *
+from data_request_model import MlRequest, UserLocation
 import pandas as pd
 from geopy.geocoders import Nominatim
 
@@ -35,7 +33,8 @@ s3_resource = boto3.resource(
 s3 = boto3.resource('s3')
 MODEL = pickle.loads(s3_resource.Object(bucket_name="aqi", key="KNRegressor").get()['Body'].read())
 
-app = FastAPI(title="Year project - AQI API", description="API to predict air quality index")
+app = FastAPI(title="Year project - AQI API",
+              description="API to predict air quality index")
 
 
 @app.get("/")
@@ -44,7 +43,8 @@ def read_root():
 
 
 def predict_model(co, no, ozone, pm2):
-    prediction = MODEL.predict(pd.DataFrame([[co, ozone, no, pm2]], columns=['CO AQI Value', 'Ozone AQI Value', 'NO2 AQI Value', 'PM2.5 AQI Value']))
+    prediction = MODEL.predict(pd.DataFrame([[co, ozone, no, pm2]],
+                                            columns=['CO AQI Value', 'Ozone AQI Value', 'NO2 AQI Value', 'PM2.5 AQI Value']))
     return prediction
 
 
@@ -70,7 +70,7 @@ def predict(parameters: MlRequest) -> float:
 @app.post("/predict_items", summary='Get predictions for several items')
 def predict_items(items: List[MlRequest]) -> List[float]:
     """
-            Получаем json, создаем из него датафрейм и отправляем за предсказаниями.
+            Получаем json, создаем фрейм и отправляем за предсказаниями.
 
             Args:
                 items: список объектов MLRequests в формате json
@@ -108,10 +108,12 @@ def get_csv(file: UploadFile) -> Response:
         try:
             df['predict'] = pd.Series(predict_by_df(df))
             df.to_csv('predictions.csv')
-            return FileResponse(path='predictions.csv', media_type='text/csv', filename='predictions.csv')
+            return FileResponse(path='predictions.csv',
+                                media_type='text/csv', filename='predictions.csv')
         except Exception as e:
             print(f"Проблема с возвратом файла {e}")
             return PlainTextResponse("No GraphQL query found in the request", 400)
+
 
 @app.post("/get_data", summary='Get predictions for location')
 def predict_by_coordinates(location: UserLocation):

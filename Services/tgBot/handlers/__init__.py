@@ -1,6 +1,6 @@
 from aiogram import Router
 
-from Services.tgBot.handlers import user_handlers, admin_handlers
+from . import user_handlers, admin_handlers
 
 
 def get_routers() -> list[Router]:

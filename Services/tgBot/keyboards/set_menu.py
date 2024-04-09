@@ -1,7 +1,6 @@
 from aiogram import Bot
 from aiogram.types import BotCommand
-
-from Services.tgBot.lexicon.lexicon_ru import MENU_COMMANDS_RU
+from lexicon.lexicon_ru import MENU_COMMANDS_RU
 
 
 # Команды и их описания хранятся в модуле lexicon_ru.py пакета lexicon, в словаре LEXICON_COMMANDS_RU
