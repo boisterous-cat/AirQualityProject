@@ -63,7 +63,9 @@ JAN-DEC : AQI по месяцам 2022
 1. Состав образа  
     1.1. Телеграм-бот  
         Ссылка - https://t.me/airQualityPredictionBot  
+        Описание -  https://github.com/boisterous-cat/AirQualityProject/blob/main/TgBot_README.md  
     1.2 Веб-интерфейс  
+        Описание - https://github.com/boisterous-cat/AirQualityProject/blob/main/Streamlit_README.md  
     1.3. Веб-сервис    
          Веб-сервис работает на внутреннем порту 8000. Сервис предоставляет следующие методы:
 ```javascript
