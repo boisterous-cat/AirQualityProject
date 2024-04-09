@@ -242,7 +242,7 @@ with tab2:
         ' Международным агентством ВОЗ по изучению рака (МАИР) как канцерогены. ')
 
 with tab3:
-    pre.show_page()
+    pre.show_page(final)
 
 
 st.sidebar.markdown(

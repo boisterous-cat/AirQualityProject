@@ -43,7 +43,6 @@ def preprocess_and_split_data(
     """
         Деление данных на train/test 0.3 и предобработка данных.
     """
-    
     # Удалим колонки с координатами, так как они только для визуализации.
     df = data.copy()
     df.drop(['lat', 'lng'], axis=1, inplace=True)

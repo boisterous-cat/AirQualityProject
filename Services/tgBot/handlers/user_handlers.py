@@ -1,14 +1,14 @@
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command, CommandStart, StateFilter
-from Services.tgBot.lexicon.lexicon_ru import LEXICON_RU
+from lexicon.lexicon_ru import LEXICON_RU
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state, State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
-from Services.tgBot.keyboards.keyboards import keyboard, df_show_keyboard
-from Services.tgBot.filters.is_admin import IsAdmin, admin_id
+from keyboards.keyboards import keyboard, df_show_keyboard
+from filters.is_admin import IsAdmin, admin_id
 import operator
-from Services.tgBot.data import work_with_data
+from data import work_with_data
 from typing import Union
 import pandas as pd
 from aiogram.types import FSInputFile
