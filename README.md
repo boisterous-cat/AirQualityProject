@@ -15,6 +15,14 @@
 5) Передать параметры в модель и получить прогноз
 6) Отобразить пользователю прогнозные значения (через бот или веб-сервис)
 
+***Реализовано***:
+1) Предобработаны данные как для визуализации, так и для обучения
+2) Проведены ML эксперименты
+3) Лучшая модель сохранена в хранилище YandexCLoud
+4) Создан веб-сервис на FastAPI (также развернут на https://aqi-api-service.onrender.com)
+5) Создано веб-приложение Streamlit
+6) Создан телеграмм-бот https://t.me/airQualityPredictionBot
+
 ***Идеи, которые скорее всего не успеем реализовать***:
 1) Подключить определение геолокации, чтобы показывать качество воздуха по определенной области нахождения пользователя
 2) Разработать прогноз на десять лет
@@ -23,7 +31,7 @@
 ***Описание датасета***   
 В качестве данных для анализа используются два датасета, дополняющих друг друга: global air pollution dataset, AQI and Lat Long of Countries. Для исторического отслеживания изменения индекса качества воздуха используется air_index.
 
-**Featres of global air pollution dataset**   
+**Features of global air pollution dataset**   
 Country : Название страны  
 City : Название города  
 AQI Value : Показатель индекса воздуха  
@@ -49,6 +57,76 @@ City : Город
 2022 : AQI на 2022  
 JAN-DEC : AQI по месяцам 2022  
 2021 - 2017 : AQI по годам  
+
+
+***Описание docker-compose***
+1. Состав образа  
+    1.1. Телеграм-бот  
+        Ссылка - https://t.me/airQualityPredictionBot  
+    1.2 Веб-интерфейс  
+    1.3. Веб-сервис    
+         Веб-сервис работает на внутреннем порту 8000. Сервис предоставляет следующие методы:
+```javascript
+   "/":{
+         "get":{
+            "summary":"Read Root",
+             "responses":{
+               "200":{ }
+            }
+         }
+        },
+   "/predict":{
+         "post":{
+            "summary":"Get one prediction",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/MlRequest"
+                     }
+                  }
+               },
+               "required":true
+            },
+         }
+      },
+   "/predict_items":{
+         "post":{
+            "summary":"Get predictions for several items",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "items":{
+                           "$ref":"#/components/schemas/MlRequest"
+                        },
+                        "type":"array",
+                        "title":"Items"
+                     }
+                  }
+               },
+               "required":true
+            },
+         }
+      },
+  "/get_data":{
+     "post":{
+        "summary":"Get predictions for location",
+        "requestBody":{
+           "content":{
+              "application/json":{
+                 "schema":{
+                    "$ref":"#/components/schemas/UserLocation"
+                 }
+              }
+           },
+           "required":true
+        },
+     }
+  }
+ }
+```
+
 
 ***Ссылка на гугл диск*** - https://drive.google.com/drive/folders/1kCMOQM4ePzumjhv7XqXKkDg7japR5vV9?usp=sharing  
 ***Ссылка на телеграм бота*** - https://github.com/boisterous-cat/tgBot/blob/main/README.md  
