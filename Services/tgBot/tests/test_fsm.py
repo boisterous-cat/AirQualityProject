@@ -96,7 +96,8 @@ async def test_states_flow_orders(dp: Dispatcher, bot: MockedBot):
 
     # Отправляем корректное значение
     bot.add_result_for(SendMessage, ok=True)
-    await dp.feed_update(bot, Update(message=make_message(str(random.randint(1, 200))), update_id=1))
+    await dp.feed_update(bot,
+                         Update(message=make_message(str(random.randint(1, 200))), update_id=1))
 
     # Проверяем, что стейт изменился на "ввод PM2"
     current_state = await fsm_context.get_state()
@@ -114,7 +115,8 @@ async def test_states_flow_orders(dp: Dispatcher, bot: MockedBot):
     # Отправляем корректное значение
     bot.add_result_for(SendMessage, ok=True)
     bot.add_result_for(SendPhoto, ok=True)
-    await dp.feed_update(bot, Update(message=make_message(str(random.randint(1, 500))), update_id=1))
+    await dp.feed_update(bot,
+                         Update(message=make_message(str(random.randint(1, 500))), update_id=1))
 
     # Получаем отправленное ботом сообщение
     outgoing_message: TelegramType = bot.get_request()

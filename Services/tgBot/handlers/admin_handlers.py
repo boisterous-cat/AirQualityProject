@@ -1,6 +1,6 @@
 from aiogram.types import Message
-from Services.tgBot.filters.is_admin import IsAdmin, admin_id
-from Services.tgBot.lexicon.lexicon_ru import MENU_COMMANDS_RU
+from filters.is_admin import IsAdmin, admin_id
+from lexicon.lexicon_ru import MENU_COMMANDS_RU
 from aiogram import Router
 from aiogram.filters import Command
 

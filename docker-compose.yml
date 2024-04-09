@@ -35,6 +35,16 @@ services:
       - deploy_network
     container_name: streamlit
 
+  bot:
+    build: Services/tgBot
+    env_file:
+      - ./Services/tgBot/.env
+    volumes:
+      - ./Images:/tgBot/images
+    networks:
+      - deploy_network
+    container_name: bot
+
 networks:
   deploy_network:
     driver: bridge

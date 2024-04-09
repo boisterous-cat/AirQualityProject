@@ -1,4 +1,4 @@
-from Services.tgBot.lexicon.lexicon_ru import MENU_COMMANDS_RU
+from lexicon.lexicon_ru import MENU_COMMANDS_RU
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # Создаем объекты инлайн-кнопок
