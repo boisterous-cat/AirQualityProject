@@ -1,3 +1,5 @@
+__pycache__/
+
 # Virtual enviroment
 **venv/
 **env/
@@ -7,3 +9,9 @@
 # Python & Jupyter
 **/__pycache__/
 **/.ipynb_checkpoints/
+
+# Pycharm
+.idea
+
+# VS Code
+.vscode/

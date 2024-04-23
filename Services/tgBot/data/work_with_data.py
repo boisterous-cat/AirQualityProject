@@ -15,6 +15,9 @@ final = load_data()
 
 
 def top_10():
+    """
+        Вывод списка 10 стран с наилучшим индексом качества воздуха из датасета
+    """
     blank_index = [''] * len(final)
     df = final[['AQI Value', 'Country', 'City']].copy().sort_values(by=['AQI Value'])
     df.index = blank_index
@@ -22,6 +25,9 @@ def top_10():
 
 
 def less_10():
+    """
+        Вывод списка 10 стран с наихудшим индексом качества воздуха из датасета
+    """
     blank_index = [''] * len(final)
     df2 = final[['AQI Value', 'Country', 'City']].copy().sort_values(by=['AQI Value'], ascending=False)
     df2.index = blank_index
@@ -29,6 +35,9 @@ def less_10():
 
 
 def get_cat(x):
+    """
+        Функция для определения категории по числовому значению индекса
+    """
     if x <= 50:
         return "Good"
     elif x <= 100:
@@ -44,6 +53,9 @@ def get_cat(x):
 
 
 def get_img(x):
+    """
+        Возвращаем адрес картинки в зависимости от категории индекса
+    """
     if "Good" in x:
         return "images/good.png"
     elif "Moderate" in x:
