@@ -30,6 +30,9 @@ s3_resource = boto3.resource(
 
 
 def download_data():
+    """
+         Загрузка данных.
+    """
     obj = s3_resource.Object(bucket_name="aqi", key="cleared_data.csv")
     df = pd.read_csv(obj.get()['Body'])
     return df
