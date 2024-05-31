@@ -16,6 +16,7 @@ from sklearn.metrics import r2_score, mean_squared_error as mse
 from sklearn.neighbors import KNeighborsRegressor
 from typing import Any, Dict, Tuple
 from config import S3_CONFIG
+from lightgbm import LGBMRegressor
 
 
 # Подключение к S3
@@ -72,7 +73,16 @@ def train_model(X_train: np.array, X_test: np.array, y_train: pd.Series,
     """
 
     # Обучение модели
-    clf = KNeighborsRegressor(n_neighbors=10)
+    # clf = KNeighborsRegressor(n_neighbors=10)
+    clf = LGBMRegressor(n_estimators=991,
+                      lambda_l1=0.1628557529899325,
+                      lambda_l2=0.11122471550610366,
+                      num_leaves=10,
+                      feature_fraction= 0.8563921794848641,
+                      bagging_fraction=0.8035252735685334,
+                      bagging_freq=5,
+                      min_child_samples=5,
+                      verbose=-1)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
 
@@ -83,7 +93,7 @@ def train_model(X_train: np.array, X_test: np.array, y_train: pd.Series,
     }
 
     # Добавление метрик в словарь
-    metrics["model_name"] = "KNRegressor"
+    metrics["model_name"] = "LGBMRegressor"
 
     return clf, metrics
 
