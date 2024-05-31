@@ -31,7 +31,7 @@ s3_resource = boto3.resource(
     )
 
 s3 = boto3.resource('s3')
-MODEL = pickle.loads(s3_resource.Object(bucket_name="aqi", key="KNRegressor").get()['Body'].read())
+MODEL = pickle.loads(s3_resource.Object(bucket_name="aqi", key="LGBMRegressor").get()['Body'].read())
 
 app = FastAPI(title="Year project - AQI API",
               description="API to predict air quality index")
@@ -48,7 +48,7 @@ def predict_model(co, no, ozone, pm2):
     return prediction
 
 
-@app.post("/predict", summary='Get one prediction')
+@app.post("/predict", summary='Get one prediction 3')
 def predict(parameters: MlRequest) -> float:
     """
             Получаем предсказание индекса качества воздуха по одному объекту.

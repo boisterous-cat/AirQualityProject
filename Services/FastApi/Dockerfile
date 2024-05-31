@@ -7,6 +7,9 @@ COPY requirements.txt /fastapi
 WORKDIR /fastapi
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get -y install curl
+RUN apt-get install libgomp1
 
 COPY . /fastapi
 
